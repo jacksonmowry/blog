@@ -21,20 +21,20 @@ fn main() {
 		create table Article
 	}
 
-	first_article := Article{
-		title: 'Hello, world!'
-		text: 'V is great. This is a second sentence to test how text wrapping works'
-	}
+	// first_article := Article{
+	// 	title: 'Hello, world!'
+	// 	text: 'V is great. This is a second sentence to test how text wrapping works'
+	// }
 
-	second_article := Article{
-		title: 'Second post'
-		text: 'Hm. . . '
-	}
+	// second_article := Article{
+	// 	title: 'Second post'
+	// 	text: 'Hm. . . '
+	// }
 
-	sql app.db {
-		insert first_article into Article
-		insert second_article into Article
-	}
+	// sql app.db {
+	// 	insert first_article into Article
+	// 	insert second_article into Article
+	// }
 
 	vweb.run(app, 8081)
 }
@@ -44,6 +44,15 @@ pub fn (app &App) index() vweb.Result {
 	articles := app.find_all_articles()
 	return $vweb.html()
 }
+
+['/latest']
+pub fn (app &App) latest() vweb.Result {
+	article := app.find_latest_article()
+	return $vweb.html()
+}
+
+['/article/:id']
+pub fn (app &App) article(id int)
 
 pub fn (mut app App) before_request() {
 	app.user_id = app.get_cookie('id') or { '0' }

@@ -2,7 +2,7 @@
   <head>
     <title>V Blog</title>
   </head>
-  <body>
+  <body style="padding: 0; margin: 0; margin-bottom: 12vh">
     @include 'header.html'
     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;">
       @for article in articles
@@ -11,7 +11,9 @@
         @article.text
       </div>
       @end
-      <a href="/new" style="background-color: #ff6600; color: black; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px">New Article</a>
     </div>
+    <footer style="position: fixed; bottom: 0; width: 100%; background-color: #333; text-align: center; box-sizing: border-box; height: 9vh;">
+      <a href="/new" style="background-color: orange; color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 0 auto; box-sizing: border-box; margin-top: 2vh">New Post</a>
+    </footer>
   </body>
 </html>
