@@ -1,9 +1,7 @@
 module main
 
 import vweb
-import time
 import db.sqlite
-import json
 
 struct App {
 	vweb.Context
@@ -19,6 +17,7 @@ fn main() {
 
 	sql app.db {
 		create table Article
+		create table Comment
 	}
 
 	// first_article := Article{
@@ -52,10 +51,9 @@ pub fn (app &App) latest() vweb.Result {
 }
 
 ['/article/:id']
-pub fn (app &App) article(id int)
-
-pub fn (mut app App) before_request() {
-	app.user_id = app.get_cookie('id') or { '0' }
+pub fn (app &App) article(id int) vweb.Result {
+	article := app.find_article_by_id(id)
+	return $vweb.html()
 }
 
 ['/new']
@@ -80,13 +78,24 @@ pub fn (mut app App) new_article(title string, text string) vweb.Result {
 	return app.redirect('/')
 }
 
-['/articles'; get]
-pub fn (mut app App) articles() vweb.Result {
-	articles := app.find_all_articles()
-	json_result := json.encode(articles)
-	return app.json(json_result)
+['/new_comment'; post]
+pub fn (mut app App) new_comment(article_id int, author string, text string) vweb.Result {
+	if author == '' || text == '' || article_id == 0 {
+		return app.text('Invalid Comment')
+	}
+	comment := Comment{
+		article_id: article_id
+		author: author
+		text: text
+	}
+	println('new comment')
+	println(comment)
+	sql app.db {
+		insert comment into Comment
+	}
+	return app.redirect('/article/${article_id}')
 }
 
-fn (mut app App) time() vweb.Result {
-	return app.text(time.now().format())
+pub fn (mut app App) before_request() {
+	app.user_id = app.get_cookie('id') or { '0' }
 }

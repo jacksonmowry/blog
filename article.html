@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>V Blog</title>
+  </head>
+  <body style="padding: 0; margin: 0; margin-bottom: 12vh;">
+    @include 'header.html'
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;">
+      <p1 style="align-self: flex-start; padding-left: 17vw;"><b>@article.title</b></p1>
+      <div style="background-color: #3E42B7; border-radius: 10px; padding: 10px; width: 65vw; text-align: center; margin-bottom: 20vw;">
+        <b>@article.title</b> <br />
+        @article.text
+      </div>
+      <u style="align-self: flex-start; padding-left: 17vw">Comments</u>
+      <div style="display: flex; flex jdirection: column; align-items: flex-start; width: 65vw;">
+        @for comment in article.comments
+        @comment.text
+        @end
+      </div>
+      <div style="display: flex; justify-content: center; align-items: center; height: 30vh; border-radius: 10px; padding: 20px; background-color: #333;">
+        <form action="/new_comment" method="post" style="background-color: #ccc; padding: 20px; border-radius: 10px; width: 65vw;">
+          <input type="hidden" name="article_id" value=@article.id>
+          <label for="author">Author:</label><br>
+          <input id="author" type="text" placeholder="Author" name="author" style="width: 100%"/><br><br>
+          <label for="text">Comment:</label><br>
+          <textarea id="text" type="text" placeholder="Comment" name="text" style="resize: vertical; width: 100%; height: 100px"></textarea><br><br>
+          <div style="display: flex; justify-content: center;">
+            <input type="submit" value="Submit Comment"/>
+          </div>
+          </form>
+      </div>
+    </div>
+    @include 'footer.html'
+  </body>
+</html>
