@@ -11,12 +11,17 @@
         @article.text
       </div>
       <u style="align-self: flex-start; padding-left: 17vw">Comments</u>
-      <div style="display: flex; flex jdirection: column; align-items: flex-start; width: 65vw;">
+      <div style="display: flex; flex-direction: column; align-items: center; width: 65vw; background-color: #ccc; gap: 20px; border-radius: 10px;">
         @for comment in article.comments
-        @comment.text
+        <article style="background-color: #aaa; border-radius: 10px; width: 90%; margin: 5px;">
+          <header>
+            <b>@comment.author</b>
+          </header>
+        @comment.text<br><br>
+        </article>
         @end
       </div>
-      <div style="display: flex; justify-content: center; align-items: center; height: 30vh; border-radius: 10px; padding: 20px; background-color: #333;">
+      <div style="display: flex; justify-content: center; align-items: center;  border-radius: 10px; padding: 20px; background-color: #333;">
         <form action="/new_comment" method="post" style="background-color: #ccc; padding: 20px; border-radius: 10px; width: 65vw;">
           <input type="hidden" name="article_id" value=@article.id>
           <label for="author">Author:</label><br>
