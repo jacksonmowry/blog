@@ -1,14 +1,41 @@
-<html>
+<!doctype html>
+<html lang="en" data-theme= "dark">
   <head>
-    <title>V Blog</title>
+    <charset="utf-8">
+      <title>V Blog</title>
+      @css 'https://unpkg.com/@picocss/pico@1.*/css/pico.css'
   </head>
-  <body style="padding: 0; margin: 0; margin-bottom: 12vh;">
+  <body>
     @include 'header.html'
-    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;">
-      <div style="background-color: #3E42B7; border-radius: 10px; padding: 10px; width: 65vw; text-align: center;">
-        <b>@article.title</b> <br />
+    <div class="container">
+      <article>
+        <header><b>@article.title</b><br></header>
         @article.text
-      </div>
+      </article>
+      <article data-theme="light">
+        <h3><b>Comments</b></h3>
+        @for comment in article.comments
+        <details open>
+          <summary>@comment.author</summary>
+          <p>@comment.text</p>
+        </details>
+        <!-- <article data-theme="light"> -->
+        <!--   <h5><b>@comment.author</b></h5> -->
+        <!--   <p><small>@comment.text</small></p> -->
+        <!-- </article> -->
+        @end
+      </article>
+      <article>
+        <h3><b>New Comment</b></h3>
+        <form action="/new_comment" method="post">
+          <input type="hidden" name="article_id" value=@article.id>
+          <label for="author">Author</label>
+          <input id="author" type="text" placeholder="Author" name="author"/>
+          <label for="text">Comment</label>
+          <textarea id="text" type="text" placeholder="Comment" name="text" style="resize: vertical;"></textarea>
+          <button type="submit">Submit Comment</button>
+        </form>
+      </article>
     </div>
     @include 'footer.html'
   </body>
