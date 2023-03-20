@@ -1,26 +1,30 @@
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme= "dark">
   <head>
     <charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>V Blog</title>
-    @css 'pico-master/css/pico.min.css'
+    @css 'https://unpkg.com/@picocss/pico@1.*/css/pico.css'
   </head>
   <body>
-    <nav>
+    <nav style="padding-left: 10px; padding-right: 10px">
       <ul>
-        <li><a href="/"><strong>Home Page</strong></a></li>
+        <li><a href="/" class="contrast"><strong>Home Page</strong></a></li>
       </ul>
       <ul>
-        <li><a href="/latest">Latest Post</a></li>
-        <li><a href="/new">New Post</a></li>
+        <li><a href="/latest" class="secondary">Latest Post</a></li>
+        <li><a href="/new" class="secondary">New Post</a></li>
       </ul>
     </nav>
     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;">
       @for article in articles
-      <a href="/article/@article.id" style="background-color: #3E42B7; border-radius: 10px; padding: 10px; width: 65vw; text-align: center; display: block; text-decoration: none; color: black;">
-        <b>@article.title</b> <br />
+        <article href="/article/@article.id" style="width: 65%; height: 100%">
+          <a href="/article/@article.id" style="text-decoration: none; width: 100%;">
+        <header><b>@article.title</b></header> <br />
+          </a>
+          <a href="/article/@article.id" style="text-decoration: none; width: 100%;" class="secondary">
         @article.text
-        </a>
+          </a>
+        </article>
       @end
     </div>
     @include 'footer.html'
