@@ -8,16 +8,7 @@
   <body>
     @include 'header.html'
     <div class="container">
-      @for article in articles
-      <article>
-        <a href="/article/@article.id">
-          <header><b>@article.title</b></header> <br />
-        </a>
-        <a href="/article/@article.id" style="text-decoration: none;" class="secondary">
-          @article.text
-        </a>
-      </article>
-      @end
+      @include 'multiple_articles.html'
     </div>
     @include 'footer.html'
   </body>

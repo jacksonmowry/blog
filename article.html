@@ -8,30 +8,9 @@
   <body>
     @include 'header.html'
     <div class="container">
-      <article>
-        <header><b>@article.title</b><br></header>
-        @article.text
-      </article>
-      <article>
-      <h3><b>Comments</b></h3>
-        @for comment in article.comments
-        <article data-theme="light">
-          <h5><b>@comment.author</b></h5>
-          <p><small>@comment.text</small></p>
-        </article>
-        @end
-      </article>
-      <article>
-        <h3><b>New Comment</b></h3>
-        <form action="/new_comment" method="post">
-          <input type="hidden" name="article_id" value=@article.id>
-          <label for="author">Author</label>
-          <input id="author" type="text" placeholder="Author" name="author"/>
-          <label for="text">Comment</label>
-          <textarea id="text" type="text" placeholder="Comment" name="text" style="resize: vertical;"></textarea>
-          <button type="submit">Submit Comment</button>
-        </form>
-      </article>
+      @include 'single_article.html'
+      @include 'comments.html'
+      @include 'new_comment.html'
     </div>
     @include 'footer.html'
   </body>
