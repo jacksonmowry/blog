@@ -1,0 +1,11 @@
+<article>
+  <h3><b>New Comment</b></h3>
+  <form action="/new_comment" method="post">
+    <input type="hidden" name="article_id" value=@article.id>
+    <label for="author">Author</label>
+    <input id="author" type="text" placeholder="Author" name="author"/>
+    <label for="text">Comment</label>
+    <textarea id="text" type="text" placeholder="Comment" name="text" style="resize: vertical;"></textarea>
+    <button type="submit">Submit Comment</button>
+  </form>
+</article>

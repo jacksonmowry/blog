@@ -4,6 +4,7 @@ struct Article {
 	id       int       [primary; sql: serial]
 	title    string
 	text     string
+	author   string
 	comments []Comment [fkey: 'article_id']
 	// Add abstract for the link
 }

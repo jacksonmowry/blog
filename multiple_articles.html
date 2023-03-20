@@ -1,0 +1,10 @@
+@for article in articles
+<article>
+  <a href="/article/@article.id">
+    <header><b>@article.title</b><br><i><u>@article.author</u></i></header><br>
+  </a>
+  <a href="/article/@article.id" style="text-decoration: none;" class="secondary">
+    @article.text
+  </a>
+</article>
+@end

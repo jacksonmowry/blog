@@ -1,16 +1,14 @@
-<html>
+<!doctype html>
+<html lang="en" data-theme= "dark">
   <head>
-    <title>V Blog</title>
+    <charset="utf-8">
+      <title>V Blog</title>
+      @css 'https://unpkg.com/@picocss/pico@1.*/css/pico.css'
   </head>
-  <body style="padding: 0; margin: 0; margin-bottom: 12vh">
+  <body>
     @include 'header.html'
-    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;">
-      @for article in articles
-      <a href="/article/@article.id" style="background-color: #3E42B7; border-radius: 10px; padding: 10px; width: 65vw; text-align: center; display: block; text-decoration: none; color: black;">
-        <b>@article.title</b> <br />
-        @article.text
-        </a>
-      @end
+    <div class="container">
+      @include 'multiple_articles.html'
     </div>
     @include 'footer.html'
   </body>

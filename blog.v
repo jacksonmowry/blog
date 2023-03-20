@@ -20,21 +20,6 @@ fn main() {
 		create table Comment
 	}
 
-	// first_article := Article{
-	// 	title: 'Hello, world!'
-	// 	text: 'V is great. This is a second sentence to test how text wrapping works'
-	// }
-
-	// second_article := Article{
-	// 	title: 'Second post'
-	// 	text: 'Hm. . . '
-	// }
-
-	// sql app.db {
-	// 	insert first_article into Article
-	// 	insert second_article into Article
-	// }
-
 	vweb.run(app, 8081)
 }
 
@@ -62,13 +47,14 @@ pub fn (mut app App) new() vweb.Result {
 }
 
 ['/new_article'; post]
-pub fn (mut app App) new_article(title string, text string) vweb.Result {
-	if title == '' || text == '' {
+pub fn (mut app App) new_article(title string, text string, author string) vweb.Result {
+	if title == '' || text == '' || author == '' {
 		return app.text('Empty text/title')
 	}
 	article := Article{
 		title: title
 		text: text
+		author: author
 	}
 	println('posting article')
 	println(article)

@@ -1,0 +1,9 @@
+<article data-theme="light">
+  <h3><b>Comments</b></h3>
+  @for comment in article.comments
+  <details open>
+    <summary>@comment.author</summary>
+    <p>@comment.text</p>
+  </details>
+  @end
+</article>
