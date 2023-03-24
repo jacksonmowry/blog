@@ -6,8 +6,9 @@ import db.sqlite
 struct App {
 	vweb.Context
 pub mut:
-	db      sqlite.DB
-	user_id string
+	db        sqlite.DB
+	user_id   string
+	logged_in bool
 }
 
 fn main() {
@@ -18,6 +19,7 @@ fn main() {
 	sql app.db {
 		create table Article
 		create table Comment
+		create table User
 	}
 
 	vweb.run(app, 8081)
@@ -43,11 +45,70 @@ pub fn (app &App) article(id int) vweb.Result {
 
 ['/new']
 pub fn (mut app App) new() vweb.Result {
+	if !app.logged_in {
+		return app.redirect('/login')
+	}
 	return $vweb.html()
+}
+
+['/signup'; get]
+pub fn (mut app App) signup() vweb.Result {
+	return $vweb.html()
+}
+
+['/signup_form'; post]
+pub fn (mut app App) signup_form(username string, password string) vweb.Result {
+	if username == '' || password == '' {
+		return app.text('Empty/Invalid Field')
+	}
+
+	user := User{
+		uname: username
+		pword: password
+	}
+
+	sql app.db {
+		insert user into User
+	} or { return app.text('Username already exists') }
+
+	app.set_cookie(name: 'login', value: 'true')
+	return app.redirect('/')
+}
+
+['/login'; get]
+pub fn (mut app App) login() vweb.Result {
+	return $vweb.html()
+}
+
+['/login_form'; post]
+pub fn (mut app App) login_form(username string, password string) vweb.Result {
+	if username == '' || password == '' {
+		return app.text('Empty/Invalid Field')
+	}
+
+	user := sql app.db {
+		select from User where uname == username limit 1
+	} or { return app.redirect('/login') }
+
+	if user.pword != password {
+		app.redirect('/login')
+	}
+
+	app.set_cookie(name: 'login', value: 'true')
+	return app.redirect('/')
+}
+
+['/signout']
+pub fn (mut app App) signout() vweb.Result {
+	app.set_cookie(name: 'login', value: 'false')
+	return app.redirect('/')
 }
 
 ['/new_article'; post]
 pub fn (mut app App) new_article(title string, text string, author string) vweb.Result {
+	if !app.logged_in {
+		return app.redirect('/login')
+	}
 	if title == '' || text == '' || author == '' {
 		return app.text('Empty text/title')
 	}
@@ -66,6 +127,9 @@ pub fn (mut app App) new_article(title string, text string, author string) vweb.
 
 ['/new_comment'; post]
 pub fn (mut app App) new_comment(article_id int, author string, text string) vweb.Result {
+	if !app.logged_in {
+		return app.redirect('/login')
+	}
 	if author == '' || text == '' || article_id == 0 {
 		return app.text('Invalid Comment')
 	}
@@ -83,5 +147,6 @@ pub fn (mut app App) new_comment(article_id int, author string, text string) vwe
 }
 
 pub fn (mut app App) before_request() {
-	app.user_id = app.get_cookie('id') or { '0' }
+	app.user_id = app.get_cookie('login') or { '0' }
+	app.logged_in = app.user_id == 'true'
 }
