@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" data-theme= "dark">
+  <head>
+    <charset="utf-8">
+      <title>V Blog</title>
+      @css 'https://unpkg.com/@picocss/pico@1.*/css/pico.css'
+  </head>
+  <body>
+    @include 'header.html'
+    <div class="container">
+      <article>
+        <h3><b>Sign Up</b></h3>
+        <form action="/signup_form" method="post">
+          <label for="Username">Username</label>
+          <input id="Username" type="text" placeholder="Username" name="username"/>
+          <label for="password">Password</label>
+          <input id="text" type="password" placeholder="Password" name="password"></input>
+          <button type="submit">Sign Up</button>
+        </form>
+      </article>
+    </div>
+  </body>
+</html>

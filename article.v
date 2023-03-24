@@ -16,6 +16,12 @@ struct Comment {
 	text       string
 }
 
+struct User {
+	id    int    [primary; serial; sql]
+	uname string [nonull; unique]
+	pword string [nonull]
+}
+
 pub fn (app &App) find_all_articles() []Article {
 	return sql app.db {
 		select from Article order by id desc
