@@ -43,6 +43,15 @@ pub fn (app &App) article(id int) vweb.Result {
 	return $vweb.html()
 }
 
+['/author/:name']
+pub fn (mut app App) author(name string) vweb.Result {
+	articles := app.find_articles_by_author(name)
+	if articles.len == 0 {
+		app.redirect('/')
+	}
+	return $vweb.html()
+}
+
 ['/new']
 pub fn (mut app App) new() vweb.Result {
 	if !app.logged_in {
@@ -53,17 +62,24 @@ pub fn (mut app App) new() vweb.Result {
 
 ['/signup'; get]
 pub fn (mut app App) signup() vweb.Result {
+	if app.logged_in {
+		return app.redirect('/')
+	}
 	return $vweb.html()
 }
 
 ['/signup_form'; post]
-pub fn (mut app App) signup_form(username string, password string) vweb.Result {
-	if username == '' || password == '' {
+pub fn (mut app App) signup_form(username string, display_name string, password string) vweb.Result {
+	if app.logged_in {
+		return app.redirect('/')
+	}
+	if username == '' || display_name == '' || password == '' {
 		return app.text('Empty/Invalid Field')
 	}
 
 	user := User{
 		uname: username
+		dname: display_name
 		pword: password
 	}
 
@@ -77,11 +93,17 @@ pub fn (mut app App) signup_form(username string, password string) vweb.Result {
 
 ['/login'; get]
 pub fn (mut app App) login() vweb.Result {
+	if app.logged_in {
+		return app.redirect('/')
+	}
 	return $vweb.html()
 }
 
 ['/login_form'; post]
 pub fn (mut app App) login_form(username string, password string) vweb.Result {
+	if app.logged_in {
+		return app.redirect('/')
+	}
 	if username == '' || password == '' {
 		return app.text('Empty/Invalid Field')
 	}
@@ -147,6 +169,6 @@ pub fn (mut app App) new_comment(article_id int, author string, text string) vwe
 }
 
 pub fn (mut app App) before_request() {
-	app.user_id = app.get_cookie('login') or { '0' }
-	app.logged_in = app.user_id == 'true'
+	login_p := app.get_cookie('login') or { '0' }
+	app.logged_in = login_p == 'true'
 }

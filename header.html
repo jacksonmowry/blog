@@ -6,12 +6,11 @@
     <li><a href="/latest" class="secondary">Latest Post</a></li>
     @if app.logged_in
         <li><a href="/new" class="secondary">New Post</a></li>
+        <li><a href="/signout" role="button">Sign Out</a>
     @end
     @if !app.logged_in
         <li><a href="/login" role="button">Login</a>
-    @end
-    @if app.logged_in
-        <li><a href="/signout" role="button">Sign Out</a>
+        <li><a href="/signup" role="button">Sign Up</a>
     @end
   </ul>
 </nav>
