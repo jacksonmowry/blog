@@ -24,26 +24,39 @@ struct User {
 }
 
 pub fn (app &App) find_all_articles() []Article {
-	return sql app.db {
+	articles := sql app.db {
 		select from Article order by id desc
-	}
+	} or { []Article{} }
+	return articles
 }
 
-pub fn (app &App) find_latest_article() Article {
+pub fn (app &App) find_latest_article() ?Article {
 	println(app.db.last_id())
-	return sql app.db {
+	article := sql app.db {
 		select from Article order by id desc limit 1
+	} or { []Article{} }
+	if article.len == 0 {
+		return none
 	}
+	return article[0]
 }
 
-pub fn (app &App) find_article_by_id(article_id int) Article {
-	return sql app.db {
+pub fn (app &App) find_article_by_id(article_id int) ?Article {
+	article := sql app.db {
 		select from Article where id == article_id limit 1
+	} or { []Article{} }
+	if article.len == 0 {
+		return none
 	}
+	return article[0]
 }
 
-pub fn (app &App) find_articles_by_author(author string) []Article {
-	return sql app.db {
+pub fn (app &App) find_articles_by_author(author string) ?[]Article {
+	articles := sql app.db {
 		select from Article where author == author
+	} or { []Article{} }
+	if articles.len == 0 {
+		return none
 	}
+	return articles
 }
