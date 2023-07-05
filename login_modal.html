@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="/modal_test.css">
+
+<dialog open id="login">
+  <article style="width: min(65ch, 90%)">
+    <header>
+      <a href="#close" class="close"></a>
+      Login Form
+    </header>
+    <h3><b>Login</b></h3>
+    <form action="/login_form" method="post">
+      <label for="Username">Username</label>
+      <input id="Username" type="text" placeholder="Username" name="username" required>
+      <label for="password">Password</label>
+      <input id="text" type="password" placeholder="Password" name="password" pattern=".{8,}" title="Password must be at least 8 characters" required>
+      <button type="submit">Login</button>
+    </form>
+  <!-- <img src="https://raw.githubusercontent.com/picocss/examples/master/v1-sign-in/img/alessio-soggetti-8jeWeKdygfk-unsplash-1000x1200.jpg"></img> -->
+  </article>
+</dialog>

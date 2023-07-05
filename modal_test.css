@@ -1,0 +1,74 @@
+/* /\* Styling for the modal container *\/ */
+/* #modal { */
+/*   position: fixed; */
+/*   top: 0; */
+/*   left: 0; */
+/*   right: 0; */
+/*   bottom: 0; */
+/*   background-color: rgba(0, 0, 0, 0.8); */
+/*   visibility: hidden; */
+/*   opacity: 0; */
+/*   transition: opacity 0.3s; */
+/*   z-index: 9999; */
+/* } */
+
+/* /\* Styling for the modal content *\/ */
+/* .modal-content { */
+/*   background-color: #11191f; */
+/*   width: 65%; */
+/*   margin: 100px auto; */
+/*   padding: 20px; */
+/*   display: flex; */
+/*   flex-direction: column; */
+/* } */
+
+/* /\* Styling for the close button *\/ */
+/* .close-btn { */
+/*   display: inline-block; */
+/*   margin-bottom: 10px; */
+/*   align-self: flex-end; */
+/* } */
+
+/* /\* Show the modal when the corresponding anchor is targeted *\/ */
+/* #modal:target { */
+/*   visibility: visible; */
+/*   opacity: 1; */
+/* } */
+
+#signup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 9999;
+  width: 65%;
+}
+
+#signup:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+#login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 9999;
+  width: 65%;
+}
+
+#login:target {
+  visibility: visible;
+  opacity: 1;
+}

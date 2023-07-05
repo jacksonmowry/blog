@@ -3,14 +3,20 @@
     <li><a href="/" class="contrast"><strong>Home Page</strong></a></li>
   </ul>
   <ul>
-    <li><a href="/latest" class="secondary">Latest Post</a></li>
     @if app.logged_in
-        <li><a href="/new" class="secondary">New Post</a></li>
-        <li><a href="/signout" role="button">Sign Out</a>
+    <li>Hi there <a href="/author/@app.username">@app.username!</a></li>
     @end
-    @if !app.logged_in
-        <li><a href="/login" role="button">Login</a>
-        <li><a href="/signup" role="button">Sign Up</a>
-    @end
+    <li><a href="/latest" class="secondary"><span class="hidden-small">Latest Post</span>&#x231B</a></li>
+    @if app.logged_in
+    <li><a href="/new" class="secondary"><span class="hidden-small">New Post</span>&#x1F4DD</a></li>
+    <li><a href="/signout" role="button"><span class="hidden-small">Sign Out</span>&#x1F44B</a>
+      @end
+      @if !app.logged_in
+      <!-- <li><a href="/login" role="button">Login</a> -->
+      @include 'login_modal.html'
+      @include 'signup_modal.html'
+    <li><a href="#login" role="button">Login</a>
+    <li><a href="#signup" role="button">Sign Up</a>
+      @end
   </ul>
 </nav>

@@ -1,15 +1,36 @@
 @for article in articles
 <article>
-  <header>
+  <header style="display: flex; justify-content: space-between;">
+    <div style=" flex-flow: column; align-self: flex-start;">
     <a href="/article/@article.id">
       <b>@article.title</b><br>
     </a>
     <a href="/author/@article.author">
       <i><u>@article.author</u></i>
     </a>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <div role="button" class="outline" style="pointer-events: none;">&#x1F440</div>
+      <div style="align-self: center;">@article.views</div>
+    </div>
   </header>
   <a href="/article/@article.id" style="text-decoration: none;" class="secondary">
     @article.text
   </a>
+  <footer style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="align-self: flex-begin;">
+    @if article.comments.len == 1
+      <a href="/article/@article.id#comments"><small>@article.comments.len Comment</small></a>
+    @else
+      <a href="/article/@article.id#comments"><small>@article.comments.len Comments</small></a>
+    @end
+    </div>
+    <div style="align-self: flex-end; display: flex; gap: 10px;">
+        <a role="button" style="pointer-events: none;">&#x1F44D</a>
+        <div style="align-self: center;">@article.likes</div>
+        <a role="button" style="pointer-events: none;">&#x1F44E;</a>
+        <div style="align-self: center;">@article.dislikes</div>
+    </div>
+  </footer>
 </article>
 @end

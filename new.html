@@ -11,10 +11,21 @@
       <article>
         <h3><b>New Article</b></h3>
         <form action="/new_article" method="post">
-          <label for="title">Title:</label>
-          <input id="title" type="text" placeholder="Title" name="title"/>
-          <label for="author">Author</label>
-          <input id="author" type="text" placeholder="Author" name="author"/>
+          <label for="title">Title:
+            <input id="title" type="text" placeholder="Title" name="title"/>
+            <div style="display: flex; gap: 1rem;">
+              <label for="link" style="flex: 5;">Link:
+                <input id="link" type="url" placeholder="Link" name="link"/>
+              </label>
+                <fieldset style="margin-bottom: 0; flex: 2; align-self: center;">
+              <em data-tooltip="Live Links will be fetched every load">
+                  <label for="live-link" style="margin-bottom: 0;">
+                    <input type="checkbox" id="live-link" name="live-link" role="switch">
+                    Live Updating Link?
+                  </label>
+              </em>
+                </fieldset>
+          </div>
           <label for="text">Text:</label>
           <textarea id="text" placeholder="Text" name="text" style="resize: vertical;"></textarea>
           <button type="submit">Submit Article</button>

@@ -1,8 +1,8 @@
-<article data-theme="dark">
+<article data-theme="dark" id="comments">
   <h3><b>Comments</b></h3>
   @for comment in article.comments
   <details open style="border-bottom: 0;">
-    <summary>@comment.author</summary>
+    <summary><i>@comment.author</i></summary>
     <p>@comment.text</p>
   </details>
   @end

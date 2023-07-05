@@ -9,7 +9,22 @@
     @include 'header.html'
     <div class="container">
       <h2>@name</h2>
-      @include 'multiple_articles.html'
+      @include 'modal_test.html'
+      <section></section>
+      <div style="display: flex; justify-content: space-between; gap: 20px;">
+        @if articles.len > 0
+        <div style="display: flex; flex-direction: column; flex: 1">
+          <h3 style="margin-bottom: 0px;">Articles Written</h3>
+          @include 'multiple_articles.html'
+        </div>
+        @end
+        @if liked.len > 0
+        <div style="display: flex; flex-direction: column; flex: 1;">
+          <h3 style="margin-bottom: 0px;">Articles Liked</h3>
+        @include 'likes.html'
+        </div>
+        @end
+      </div>
     </div>
     @include 'foot.html'
   </body>

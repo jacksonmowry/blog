@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>@author's RSS Feed'</title>
+    <link>http://localhost:8081/author/@author</link>
+    <description>@author's Personal RSS Feed Subscribe for all content'</description>
+
+    @for article in articles
+    <item>
+      <title>@article.title</title>
+      <link>localhost:8081/article/@article.id</link>
+      <author>@article.author</author>
+    </item>
+    @end
+
+  </channel>
+</rss>
