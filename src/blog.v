@@ -19,7 +19,7 @@ pub mut:
 fn main() {
 	mut app := &App{
 		// db: sqlite.connect(':memory:') or { panic(err) }
-		db: sqlite.connect('db/blog.db') or { panic(err) }
+		db: sqlite.connect('../db/blog.db') or { panic(err) }
 	}
 
 	sql app.db {
@@ -32,7 +32,7 @@ fn main() {
 
 	//
 	// Testing
-	app.serve_static('/output.css', 'output.css')
+	app.serve_static('/output.css', 'css/output.css')
 	//
 
 	vweb.run(app, 8081)
