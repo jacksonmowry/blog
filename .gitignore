@@ -1,6 +1,7 @@
 # Binaries for programs and plugins
 main
 blog
+tailwind
 *.exe
 *.exe~
 *.so
@@ -9,6 +10,7 @@ blog
 
 # Ignore binary output folders
 bin/
+db/
 
 # Ignore common editor/system specific metadata
 .DS_Store

@@ -1,31 +1,70 @@
 <!doctype html>
-<html lang="en" data-theme= "dark">
-  <head>
-    <charset="utf-8">
-      <title>V Blog</title>
-      @css 'https://unpkg.com/@picocss/pico@1.*/css/pico.css'
-  </head>
-  <body>
-    @include 'header.html'
-    <div class="container">
-      <h2>@name</h2>
-      @include 'modal_test.html'
-      <section></section>
-      <div style="display: flex; justify-content: space-between; gap: 20px;">
+<html lang="en" data-theme="dark">
+
+<head>
+  <charset="utf-8">
+    <title>V Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @css '/output.css'
+</head>
+
+<body class="w-screen h-screen bg-gray-900">
+  @include 'header.html'
+  <div class="flex flex-col items-center">
+    <div
+      class="flex flex-col mt-10 mb-10 content-between items-center justify-center gap-10 w-11/12 sm:w-9/12 lg:w-8/12 xl:w-1/2 2xl:w-5/12">
+      <div class="flex justify-between items-center w-full text-gray-400 text-3xl">
+        <div class="text-gray-200">@name</div>
+        <details class="relative">
+          <summary class="cursor-pointer list-none">
+            <svg class="fill-orange-400 outline-orange-400 stroke-2" width="30" height="30" aria-hidden="true"
+              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path clip-rule="evenodd"
+                d="M3.75 4.5a.75.75 0 01.75-.75h.75c8.284 0 15 6.716 15 15v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75C18 11.708 12.292 6 5.25 6H4.5a.75.75 0 01-.75-.75V4.5zm0 6.75a.75.75 0 01.75-.75h.75a8.25 8.25 0 018.25 8.25v.75a.75.75 0 01-.75.75H12a.75.75 0 01-.75-.75v-.75a6 6 0 00-6-6H4.5a.75.75 0 01-.75-.75v-.75zm0 7.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
+                fill-rule="evenodd"></path>
+            </svg>
+          </summary>
+          <span class="absolute p-4 bg-gray-700 rounded shadow text-sm right-0">localhost:8081/rss/@name</span>
+        </details>
+      </div>
+      <div class="flex justify-between gap-5 w-full">
         @if articles.len > 0
-        <div style="display: flex; flex-direction: column; flex: 1">
-          <h3 style="margin-bottom: 0px;">Articles Written</h3>
-          @include 'multiple_articles.html'
+        <div class="flex flex-col flex-1 gap-4">
+          <div class="flex items-start w-full text-gray-400 text-xl">Articles Written</div>
+          @for article in articles
+          <a href="/article/@article.id" class="cursor-pointer">
+            <div class="flex flex-col rounded sm:rounded-md shadow bg-gray-700 px-4 py-2">
+              <div class="flex justify-between content-center items-center">
+                <span class="pb-2 text-xl font-medium text-white">@article.title</span>
+                <div class="flex justify-between content-center items-center gap-2">
+                  <span class="text-end h-min text-gray-400">@article.views</span>
+                  <span class="rounded-md bg-sky-400 p-1">&#x1F440</span>
+                </div>
+              </div>
+              <div class="flex items-center content-center">
+                <svg class="stroke-sky-400 stroke-2" width="14" height="14" aria-hidden="true" fill="none"
+                  stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <a href="@article.link" target="_blank"
+                  class="self-end cursor-pointer italic text-sky-400 text-sm line-clamp-1">@article.link_title</a>
+              </div>
+              <p class="line-clamp-4 text-sm text-gray-400">@article.text</p>
+            </div>
+          </a>
+          @end
         </div>
-        @end
-        @if liked.len > 0
-        <div style="display: flex; flex-direction: column; flex: 1;">
-          <h3 style="margin-bottom: 0px;">Articles Liked</h3>
-        @include 'likes.html'
+        @else
+        <div class="flex flex-col flex-1 gap-4">
+          <div class="flex items-start w-full text-gray-400 text-xl">Nothing here!</div>
         </div>
         @end
       </div>
     </div>
-    @include 'foot.html'
-  </body>
+  </div>
+  @include 'foot.html'
+</body>
+
 </html>

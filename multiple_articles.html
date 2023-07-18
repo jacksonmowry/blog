@@ -1,36 +1,45 @@
 @for article in articles
-<article>
-  <header style="display: flex; justify-content: space-between;">
-    <div style=" flex-flow: column; align-self: flex-start;">
-    <a href="/article/@article.id">
-      <b>@article.title</b><br>
-    </a>
-    <a href="/author/@article.author">
-      <i><u>@article.author</u></i>
-    </a>
+<article class="flex w-11/12 flex-col shadow-xl sm:w-9/12 md:text-xl lg:w-8/12 lg:text-2xl xl:w-1/2 2xl:w-5/12">
+  <div id="header"
+    class="py-2 flex items-center justify-between rounded-t bg-gray-600 px-4 md:h-20 lg:h-28 lg:rounded-t-lg lg:px-8">
+    <div class="flex flex-col">
+      <a href="/article/@article.id"
+        class="cursor-pointer text-sky-400 underline font-bold text-lg sm:text-xl lg:text-2xl">@article.title</a>
+      <span class="text-gray-300 cursor-default text-sm">Posted by <a href="/author/@article.author"
+          class="cursor-pointer italic text-sky-400 text-sm">@article.author</a></span>
+      <div class="flex items-center content-center">
+        <svg class="stroke-sky-400 stroke-2" width="14" height="14" aria-hidden="true" fill="none" stroke-width="1.5"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+            stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <a href="@article.link" target="_blank"
+          class="self-end cursor-pointer italic text-sky-400 text-sm line-clamp-1">@article.link_title</a>
+      </div>
     </div>
-    <div style="display: flex; gap: 10px;">
-      <div role="button" class="outline" style="pointer-events: none;">&#x1F440</div>
-      <div style="align-self: center;">@article.views</div>
+    <div class="flex items-center gap-2 lg:gap-4">
+      <span class="text-center text-slate-400 cursor-default">@article.views</span>
+      <span
+        class="flex h-8 w-8 items-center justify-center rounded-md text-center outline outline-1 outline-sky-400 md:h-12 md:w-12 lg:h-16 lg:w-16 cursor-default">&#x1F440</span>
     </div>
-  </header>
-  <a href="/article/@article.id" style="text-decoration: none;" class="secondary">
-    @article.text
-  </a>
-  <footer style="display: flex; justify-content: space-between; align-items: center;">
-    <div style="align-self: flex-begin;">
+  </div>
+  <div id="body" class="bg-gray-700 px-4 py-3 text-gray-400 lg:px-8 lg:py-6">
+    <p class="line-clamp-3 lg:line-clamp-5">@article.text</p>
+  </div>
+  <div id="footer"
+    class="flex h-16 items-center justify-between rounded-b bg-gray-600 px-4 md:h-20 lg:h-28 lg:rounded-b-lg lg:px-8">
     @if article.comments.len == 1
-      <a href="/article/@article.id#comments"><small>@article.comments.len Comment</small></a>
+    <a href="/article/@article.id#comments" class="cursor-pointer text-sky-400 ">1 Comment</a>
     @else
-      <a href="/article/@article.id#comments"><small>@article.comments.len Comments</small></a>
+    <a href="/article/@article.id#comments" class="cursor-pointer text-sky-400">@article.comments.len Comments</a>
     @end
+    <div class="flex items-center gap-2 lg:gap-4">
+      <span class="text-center text-slate-400 cursor-default">@article.likes</span>
+      <div
+        class="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500 md:h-12 md:w-12 lg:h-16 lg:w-16 cursor-default">
+        &#x1F44D</div>
     </div>
-    <div style="align-self: flex-end; display: flex; gap: 10px;">
-        <a role="button" style="pointer-events: none;">&#x1F44D</a>
-        <div style="align-self: center;">@article.likes</div>
-        <a role="button" style="pointer-events: none;">&#x1F44E;</a>
-        <div style="align-self: center;">@article.dislikes</div>
-    </div>
-  </footer>
+  </div>
 </article>
 @end

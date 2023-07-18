@@ -1,5 +1,7 @@
 module main
 
+import net.http
+import net.html
 import vweb
 import db.sqlite
 import rand
@@ -17,7 +19,7 @@ pub mut:
 fn main() {
 	mut app := &App{
 		// db: sqlite.connect(':memory:') or { panic(err) }
-		db: sqlite.connect('blog.db') or { panic(err) }
+		db: sqlite.connect('db/blog.db') or { panic(err) }
 	}
 
 	sql app.db {
@@ -30,7 +32,7 @@ fn main() {
 
 	//
 	// Testing
-	app.serve_static('/modal_test.css', 'modal_test.css')
+	app.serve_static('/output.css', 'output.css')
 	//
 
 	vweb.run(app, 8081)
@@ -59,13 +61,6 @@ pub fn (mut app App) article(id int) vweb.Result {
 ['/author/:name']
 pub fn (mut app App) author(name string) vweb.Result {
 	articles := app.find_articles_by_author(name) or { []Article{} }
-
-	// find articles liked by authors id not viewers id
-	author := sql app.db {
-		select from User where uname == name
-	} or { return app.redirect('/') }
-
-	liked := author[0].likes
 
 	return $vweb.html()
 }
@@ -128,7 +123,9 @@ pub fn (mut app App) signup_form(username string, display_name string, password 
 	} or {}
 	app.set_cookie(name: 'session_token', value: uuid)
 
-	return app.redirect('/')
+	referer := app.get_header('referer')
+
+	return app.redirect(referer)
 }
 
 ['/login'; get]
@@ -171,7 +168,10 @@ pub fn (mut app App) login_form(username string, password string) vweb.Result {
 		insert session into Sessions
 	} or {}
 	app.set_cookie(name: 'session_token', value: uuid)
-	return app.redirect('/')
+
+	referer := app.get_header('referer')
+
+	return app.redirect(referer)
 }
 
 ['/signout']
@@ -185,22 +185,41 @@ pub fn (mut app App) signout() vweb.Result {
 	} or { return app.redirect('/') }
 	app.set_cookie(name: 'login', value: 'false')
 	app.set_cookie(name: 'session_token', value: '')
-	return app.redirect('/')
+
+	referer := app.get_header('referer')
+
+	return app.redirect(referer)
 }
 
 ['/new_article'; post]
-pub fn (mut app App) new_article(title string, text string) vweb.Result {
+pub fn (mut app App) new_article(title string, text string, link string) vweb.Result {
 	if !app.logged_in {
 		return app.redirect('/login')
 	}
 	if title == '' || text == '' {
 		return app.text('Empty text/title')
 	}
+
+	res := http.fetch(http.FetchConfig{
+		url: link
+		method: .get
+		user_agent: 'Mozilla/5.0 (Windows NT 10.0; rv:109.0) Gecko/20100101 Firefox/115.0'
+	}) or { http.Response{} }
+	doc := html.parse(res.body)
+	web_title := doc.get_tags(html.GetTagsOptions{ name: 'title' })[0] or {
+		&html.Tag{
+			content: link
+		}
+	}
+
 	article := Article{
 		title: title
+		link: link
+		link_title: web_title.content
 		text: text
 		author: app.username
 	}
+
 	sql app.db {
 		insert article into Article
 	} or { return app.server_error(500) }
@@ -272,8 +291,6 @@ pub fn (mut app App) up(article_id int) vweb.Result {
 }
 
 pub fn (mut app App) before_request() {
-	// login_p := app.get_cookie('login') or { '0' }
-	// app.logged_in = login_p == 'true'
 	session_t := app.get_cookie('session_token') or { '' }
 	session := sql app.db {
 		select from Sessions where session_token == session_t limit 1

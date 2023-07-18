@@ -1,9 +1,15 @@
-<article data-theme="dark" id="comments">
-  <h3><b>Comments</b></h3>
+<article id="comments"
+  class="pb-5 h-min w-11/12 break-words rounded-md bg-gray-700 px-8 pt-8 text-md sm:text-xl text-slate-300 sm:w-9/12 lg:w-8/12 xl:w-1/2 2xl:w-5/12">
+  <h3 class="mb-8 text-3xl font-bold text-gray-300 pb-2"><b class="font-black">Comments</b>
+  </h3>
+  @if article.comments.len == 0
+  <div class="mb-4">Nothing here yet...</div>
+  @end
   @for comment in article.comments
-  <details open style="border-bottom: 0;">
-    <summary><i>@comment.author</i></summary>
-    <p>@comment.text</p>
+  <details open class="marker:cursor-pointer my-2 border border-gray-500 shadow-sm rounded p-4">
+    <summary><i><a href="/author/@comment.author" class="hover:underline text-sky-400">@comment.author</a></i>
+    </summary>
+    <p class="mt-2 text-base">@comment.text</p>
   </details>
   @end
 </article>

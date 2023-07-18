@@ -1,15 +1,16 @@
 module main
 
 struct Article {
-	id     int    [primary; sql: serial]
-	title  string
-	text   string
-	author string
+	id         int    [primary; sql: serial]
+	title      string
+	text       string
+	author     string
+	link       string
+	link_title string
 mut:
 	views int
 pub:
 	likes    int
-	dislikes int
 	comments []Comment [fkey: 'article_id']
 }
 

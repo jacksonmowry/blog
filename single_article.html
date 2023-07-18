@@ -1,37 +1,47 @@
-<article>
-  <header style="display: flex; justify-content: space-between;">
-    <div style="align-self: center; display: flex; flex-direction: column;">
-      <div style="align-self: flex-start"><b>@article.title</b></div>
-      <a href="/author/@article.author" style="align-self: flex-start">
-        @article.author
-      </a>
-    </div>
-    <div style="display: flex; justify-content: space-between; gap: 10px;">
-      <div style="display: flex; flex-direction: column;">
-        <div role="button" class="outline" style="pointer-events: none;">&#x1F440</div>
-        <div style="align-self: center;">@article.views</div>
-      </div>
-      <div style="display: flex; flex-direction: column;">
-        @if app.logged_in
-          @if liked
-            <a href="/@article.id/up" role="button" style="background-color: green; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3)">&#x1F44D</a>
-          @else if app.logged_in && !liked
-            <a href="/@article.id/up" role="button">&#x1F44D</a>
-          @end
-        @else
-        <a role="button" style="pointer-events: none;">&#x1F44D</a>
-        @end
-        <div style="align-self: center;">@article.likes</div>
-      </div>
-      <div style="display: flex; flex-direction: column;">
-        @if app.logged_in
-        <a href="/@article.id/down" role="button">&#x1F44E;</a>
-        @else
-        <a role="button" style="pointer-events: none;">&#x1F44E;</a>
-        @end
-        <div style="align-self: center;">@article.dislikes</div>
+<article class="flex w-11/12 flex-col shadow-xl sm:w-9/12 md:text-xl lg:w-8/12 lg:text-2xl xl:w-1/2 2xl:w-5/12">
+  <div id="header"
+    class="md:py-12 flex items-center justify-between rounded-t bg-gray-600 px-4 md:h-20 lg:h-28 lg:rounded-t-lg lg:px-8">
+    <div class="flex flex-col">
+      <span
+        class="pt-2 text-gray-300 underline font-bold text-lg sm:text-xl lg:text-2xl xl:text-3xl cursor-default">@article.title</span>
+      <span class="text-gray-300 text-sm cursor-default">Posted by <a href="/author/@article.author"
+          class="cursor-pointer italic text-sky-400 text-sm">@article.author</a></span>
+      <div class="flex pb-2 mt-4 items-center content-center">
+        <svg class="stroke-sky-400 stroke-2" width="14" height="14" aria-hidden="true" fill="none" stroke-width="1.5"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+            stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <a href="@article.link" target="_blank"
+          class="self-end cursor-pointer italic text-sky-400 text-sm line-clamp-1">@article.link_title</a>
       </div>
     </div>
-  </header>
-  @article.text
+    <div class="flex justify-center items-center gap-2 lg:gap-4 ">
+      <div id="views" class="flex flex-col">
+        <span
+          class="flex h-8 w-8 items-center justify-center rounded-md text-center border border-sky-400 lg:h-16 lg:w-16 cursor-default">&#x1F440</span>
+        <span class="text-center text-slate-400 cursor-default">@article.views</span>
+      </div>
+      <div id="likes" class="flex justify-center items-center flex-col">
+        @if app.logged_in
+        @if liked
+        <a href="/@article.id/up" role="button"
+          class="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500 lg:h-16 lg:w-16">&#x1F44D</a>
+        @else if app.logged_in && !liked
+        <a href="/@article.id/up" role="button"
+          class="flex h-8 w-8 items-center justify-center rounded-md bg-sky-400 lg:h-16 lg:w-16">&#x1F44D</a>
+        @end
+        @else
+        <div
+          class="flex h-8 w-8 items-center justify-center rounded-md bg-gray-500 lg:h-16 lg:w-16 pointer-events-none cursor-default">
+          &#x1F44D</div>
+        @end
+        <span class="text-center text-slate-400 cursor-default">@article.likes</span>
+      </div>
+    </div>
+  </div>
+  <div id="body" class="bg-gray-700 px-4 py-3 text-gray-400 lg:px-8 lg:py-6 rounded-b lg:rounded-b-lg">
+    <p class="">@article.text</p>
+  </div>
 </article>

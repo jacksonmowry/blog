@@ -1,36 +1,42 @@
 <!doctype html>
-<html lang="en" data-theme= "dark">
-  <head>
-    <charset="utf-8">
-      <title>V Blog</title>
-      @css 'https://unpkg.com/@picocss/pico@1.*/css/pico.css'
-  </head>
-  <body>
-    @include 'header.html'
-    <div class="container">
-      <article>
-        <h3><b>New Article</b></h3>
-        <form action="/new_article" method="post">
-          <label for="title">Title:
-            <input id="title" type="text" placeholder="Title" name="title"/>
-            <div style="display: flex; gap: 1rem;">
-              <label for="link" style="flex: 5;">Link:
-                <input id="link" type="url" placeholder="Link" name="link"/>
-              </label>
-                <fieldset style="margin-bottom: 0; flex: 2; align-self: center;">
-              <em data-tooltip="Live Links will be fetched every load">
-                  <label for="live-link" style="margin-bottom: 0;">
-                    <input type="checkbox" id="live-link" name="live-link" role="switch">
-                    Live Updating Link?
-                  </label>
-              </em>
-                </fieldset>
-          </div>
-          <label for="text">Text:</label>
-          <textarea id="text" placeholder="Text" name="text" style="resize: vertical;"></textarea>
-          <button type="submit">Submit Article</button>
-        </form>
-      </article>
-    </div>
-  </body>
+<html lang="en" data-theme="dark">
+
+<head>
+  <charset="utf-8">
+    <title>V Blog</title>
+    @css 'output.css'
+</head>
+
+<body class="w-screen h-screen bg-gray-900">
+  @include 'header.html'
+  <div class="flex flex-col mt-10 mb-10 content-between items-center justify-center gap-10">
+    <article
+      class="h-min w-11/12 break-words rounded-md bg-gray-700 px-8 pt-8 text-md sm:text-xl text-slate-300 sm:w-9/12 md:w-7/12 lg:w-1/2">
+      <h3 class="mb-8 text-3xl font-bold text-gray-300"><b class="font-black">New Post</b></h3>
+      <form action="/new_article" method="post">
+        <label class="block w-full">
+          <span class="mb-1">Title</span>
+          <input type="text" placeholder="Title" name="title"
+            class="mb-5 mt-1 block w-full cursor-text rounded-md border border-solid border-slate-400 bg-gray-700 px-5 py-3.5" />
+        </label>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center sm:items-center content-start mb-5">
+          <label class="block w-full">
+            <span class="mb-1">Link</span>
+            <input type="text" placeholder="Link" name="link" type="url" required
+              class="mt-1 block w-full cursor-text rounded-md border border-solid border-slate-400 bg-gray-700 px-5 py-3.5" />
+          </label>
+        </div>
+        <label for="text">Text</label>
+        <textarea name="text" id="text"
+          class="resize-y block p-2.5 w-full text-inherit bg-inherit rounded border border-slate-400"
+          placeholder="Post content..." rows="4"></textarea>
+        <button type="submit"
+          class="mb-5 mt-10 h-16 w-full cursor-pointer rounded-md border border-solid border-cyan-600 bg-cyan-600 px-5 py-3.5 text-center text-white">Submit
+        </button>
+      </form>
+    </article>
+  </div>
+</body>
+
 </html>

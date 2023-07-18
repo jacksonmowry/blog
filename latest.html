@@ -3,11 +3,11 @@
   <head>
     <charset="utf-8">
       <title>V Blog</title>
-      @css 'https://unpkg.com/@picocss/pico@1.*/css/pico.css'
+      @css '/output.css'
   </head>
-  <body>
+  <body class="w-screen h-screen bg-gray-900">
     @include 'header.html'
-    <div class="container">
+    <div class="flex flex-col mt-10 mb-10 content-between items-center justify-center gap-10">
       @include 'single_article.html'
       @include 'comments.html'
       @include 'new_comment.html'

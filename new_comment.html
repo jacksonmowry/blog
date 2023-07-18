@@ -1,13 +1,15 @@
 @if app.logged_in
-<article>
-  <h3><b>New Comment</b></h3>
+<article
+  class="h-min w-11/12 break-words rounded-md bg-gray-700 px-8 pt-8 text-md sm:text-xl text-slate-300 sm:w-9/12 lg:w-8/12 xl:w-1/2 2xl:w-5/12">
+  <h3 class="mb-8 text-3xl font-bold text-gray-300"><b class="font-black">New Comment</b></h3>
   <form action="/new_comment" method="post">
     <input type="hidden" name="article_id" value=@article.id>
-    <!-- <label for="author">Author</label> -->
-    <!-- <input id="author" type="text" placeholder="Author" name="author"/> -->
-    <label for="text">Comment</label>
-    <textarea id="text" type="text" placeholder="Comment" name="text" style="resize: vertical;"></textarea>
-    <button type="submit">Submit Comment</button>
+    <textarea name="text" id="text" class="block p-2.5 w-full text-gray-200 bg-inherit rounded border border-gray-400"
+      placeholder="Your Comment..."></textarea>
+    <button type="submit"
+      class="mt-10 mb-5 h-16 w-full cursor-pointer rounded-md border border-solid border-cyan-600 bg-cyan-600 px-5 py-3.5 text-center text-white">Submit
+      Comment
+    </button>
   </form>
 </article>
 @end
