@@ -18,7 +18,6 @@ pub mut:
 
 fn main() {
 	mut app := &App{
-		// db: sqlite.connect(':memory:') or { panic(err) }
 		db: sqlite.connect('../db/blog.db') or { panic(err) }
 	}
 
@@ -203,7 +202,6 @@ pub fn (mut app App) new_article(title string, text string, link string) vweb.Re
 	res := http.fetch(http.FetchConfig{
 		url: link
 		method: .get
-		user_agent: 'Mozilla/5.0 (Windows NT 10.0; rv:109.0) Gecko/20100101 Firefox/115.0'
 	}) or { http.Response{} }
 	doc := html.parse(res.body)
 	web_title := doc.get_tags(html.GetTagsOptions{ name: 'title' })[0] or {

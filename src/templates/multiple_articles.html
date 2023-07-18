@@ -30,14 +30,15 @@
   <div id="footer"
     class="flex h-16 items-center justify-between rounded-b bg-gray-600 px-4 md:h-20 lg:h-28 lg:rounded-b-lg lg:px-8">
     @if article.comments.len == 1
-    <a href="/article/@article.id#comments" class="cursor-pointer text-sky-400 ">1 Comment</a>
+    <a href="/article/@article.id#comments" class="cursor-pointer text-sky-400 text-base">1 Comment</a>
     @else
-    <a href="/article/@article.id#comments" class="cursor-pointer text-sky-400">@article.comments.len Comments</a>
+    <a href="/article/@article.id#comments" class="cursor-pointer text-sky-400 text-base">@article.comments.len
+      Comments</a>
     @end
     <div class="flex items-center gap-2 lg:gap-4">
       <span class="text-center text-slate-400 cursor-default">@article.likes</span>
       <div
-        class="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500 md:h-12 md:w-12 lg:h-16 lg:w-16 cursor-default">
+        class="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-500 md:h-12 md:w-12 lg:h-16 lg:w-16 cursor-default text-2xl">
         &#x1F44D</div>
     </div>
   </div>

@@ -1,17 +1,21 @@
 <!doctype html>
-<html lang="en" data-theme= "dark">
-  <head>
-    <charset="utf-8">
-      <title>V Blog</title>
-      @css '/output.css'
-  </head>
-  <body class="w-screen h-screen bg-gray-900">
-    @include 'header.html'
-    <div class="flex flex-col mt-10 mb-10 content-between items-center justify-center gap-10">
-      @include 'single_article.html'
-      @include 'comments.html'
-      @include 'new_comment.html'
-    </div>
-    @include 'foot.html'
-  </body>
+<html lang="en" data-theme="dark">
+
+<head>
+  <charset="utf-8">
+    <title>V Blog | @article.title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @css '/output.css'
+</head>
+
+<body class="w-screen h-screen bg-gray-900">
+  @include 'header.html'
+  <div class="flex flex-col mt-10 mb-10 content-between items-center justify-center gap-10">
+    @include 'single_article.html'
+    @include 'comments.html'
+    @include 'new_comment.html'
+  </div>
+  @include 'foot.html'
+</body>
+
 </html>
