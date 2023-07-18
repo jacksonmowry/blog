@@ -3,6 +3,7 @@ main
 blog
 tailwind
 src
+src/src
 *.exe
 *.exe~
 *.so
