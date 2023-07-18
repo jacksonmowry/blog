@@ -38,8 +38,12 @@ tailwind -i input.css -o output.css
 ```shell
 git clone https://github.com/jacksonmowry/blog.git
 cd blog
-cd src
-v run .
+cd src/css
+./tailwind -i input.css -o output.css
+./tailwind -o output.css --minify
+cd ..
+v -prealloc -prod -o tvlite
+./tvlite
 ```
 
 ## Development and Contribution
