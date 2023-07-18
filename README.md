@@ -1,10 +1,12 @@
 # TVLite Microblog
 
-TVLite is a webstack based on tailwindcss, vlang, and sqlite.
+![ai-generated repo image](tv.jpg)
 
-No JavaScript is used to run any part of the website, meaning only HTML and CSS are shipped to the browser.
+TVLite📺 is a webstack based on tailwindcss, vlang, and sqlite.
 
-It is feature light, but is complete enough for use.
+No JavaScript(💩) is used to run any part of the website, meaning only HTML and CSS are shipped to the browser 🔥.
+
+It is feature light, but complete enough for use.
 
 ## Deployment Dependencies
 
@@ -18,7 +20,7 @@ If you are on linux sqlite can be installed with you package manager, if this do
 
 ### Installing Tailwindcss
 
-Tailwindcss is normally installed via npm, and if you already have it on your machine go ahead with that, but for this project we will just use the standalone cli so we do not inherit a dependency on npm.
+Tailwindcss is normally installed via npm, and if you already have it on your machine go ahead with that, but for this project we will just use the standalone cli so we do not inherit a dependency on npm(🤮).
 
 <https://github.com/tailwindlabs/tailwindcss/releases/latest>
 
